@@ -5,6 +5,7 @@ import MDEditor from '@uiw/react-md-editor';
 const TextEditor: React.FC = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState('# Header');
 
   useEffect(() => {
     const listener = (event: MouseEvent) => {
@@ -31,7 +32,7 @@ const TextEditor: React.FC = () => {
   if (editing) {
     return (
       <div className="text-editor" ref={ref}>
-        <MDEditor />
+        <MDEditor value={value} onChange={(v) => setValue(v || '')} />
       </div>
     );
   }
@@ -39,7 +40,7 @@ const TextEditor: React.FC = () => {
   return (
     <div className="text-editor card" onClick={() => setEditing(true)}>
       <div className="card-content">
-        <MDEditor.Markdown source={'# Header'} />
+        <MDEditor.Markdown source={value} />
       </div>
     </div>
   )
